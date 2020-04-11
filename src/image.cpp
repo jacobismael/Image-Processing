@@ -182,7 +182,7 @@ void Image::threshold(int threshold)
     }
 }
 
-void Image::median()
+void Image::median() // sorting needs work
 {
 
     for (int i = 0; i < scratch.rows; i++)
