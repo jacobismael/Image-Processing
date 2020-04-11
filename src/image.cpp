@@ -6,8 +6,7 @@ using namespace cv;
 
 Image::Image(string filepath)
 {
-    string path = "../img/";
-    this->image = imread(path.append(filepath), 1);
+    this->image = imread(filepath, 1);
     image.copyTo(scratch);
 
     binaryMat = Mat(image.size(), CV_8U);
@@ -30,8 +29,7 @@ Mat Image::getBinaryMat()
 
 void Image::setImage(string filepath)
 {
-    string path = "../img/";
-    this->image = imread(path.append(filepath), 1);
+    this->image = imread(filepath, 1);
     image.copyTo(scratch);
     binaryMat = Mat(image.size(), CV_8U);
 }
@@ -223,9 +221,12 @@ void Image::median() // sorting needs work
             int g[9] = {scratch.at<Vec3b>(i - 1, j - 1)[1], scratch.at<Vec3b>(i - 1, j)[1], scratch.at<Vec3b>(i - 1, j + 1)[1], scratch.at<Vec3b>(i, j - 1)[1], scratch.at<Vec3b>(i, j)[1], scratch.at<Vec3b>(i, j + 1)[1], scratch.at<Vec3b>(i + 1, j - 1)[1], scratch.at<Vec3b>(i + 1, j)[1], scratch.at<Vec3b>(i + 1, j + 1)[1]};
             int r[9] = {scratch.at<Vec3b>(i - 1, j - 1)[2], scratch.at<Vec3b>(i - 1, j)[2], scratch.at<Vec3b>(i - 1, j + 1)[2], scratch.at<Vec3b>(i, j - 1)[2], scratch.at<Vec3b>(i, j)[2], scratch.at<Vec3b>(i, j + 1)[2], scratch.at<Vec3b>(i + 1, j - 1)[2], scratch.at<Vec3b>(i + 1, j)[2], scratch.at<Vec3b>(i + 1, j + 1)[2]};
 
-            for(int r = 0; r < 9; r++) {
-                for(int c = 0; c < 9; c++) {
-                    if(b[r] < b[c]) {
+            for (int r = 0; r < 9; r++)
+            {
+                for (int c = 0; c < 9; c++)
+                {
+                    if (b[r] < b[c])
+                    {
                         int t = b[r];
                         b[r] = b[c];
                         b[c] = t;
@@ -233,19 +234,26 @@ void Image::median() // sorting needs work
                 }
             }
 
-            for(int r = 0; r < 9; r++) {
-                for(int c = 0; c < 9; c++) {
-                    if(g[r] < g[c]) {
+            for (int r = 0; r < 9; r++)
+            {
+                for (int c = 0; c < 9; c++)
+                {
+                    if (g[r] < g[c])
+                    {
                         int t = g[r];
                         g[r] = g[c];
                         g[c] = t;
                     }
                 }
             }
+            
 
-            for(int l = 0; l < 9; l++) {
-                for(int c = 0; c < 9; c++) {
-                    if(r[l] < r[c]) {
+            for (int l = 0; l < 9; l++)
+            {
+                for (int c = 0; c < 9; c++)
+                {
+                    if (r[l] < r[c])
+                    {
                         int t = r[l];
                         r[l] = r[c];
                         r[c] = t;
@@ -256,6 +264,60 @@ void Image::median() // sorting needs work
             pixel[0] = b[5];
             pixel[1] = g[5];
             pixel[2] = r[5];
+
+            scratch.at<Vec3b>(i, j) = pixel;
+        }
+    }
+}
+
+void Image::smidge(int x) {
+    for (int i = 0; i < scratch.rows; i++)
+    {
+        for (int j = 0; j < scratch.cols; j++)
+        {
+            Vec3b pixel = scratch.at<Vec3b>(i, j);
+
+            if (i - 1 < 0)
+            {
+                scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
+                scratch.at<Vec3b>(i - 1, j) = {0, 0, 0};
+                scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
+            }
+
+            if (i + 1 > scratch.rows - 1)
+            {
+                scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
+                scratch.at<Vec3b>(i + 1, j) = {0, 0, 0};
+                scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
+            }
+
+            if (j - 1 < 0)
+            {
+                scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
+                scratch.at<Vec3b>(i, j - 1) = {0, 0, 0};
+                scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
+            }
+
+            if (j + 1 > scratch.cols - 1)
+            {
+                scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
+                scratch.at<Vec3b>(i, j + 1) = {0, 0, 0};
+                scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
+            }
+
+            Vec3b b[9] = {scratch.at<Vec3b>(i - 1, j - 1), scratch.at<Vec3b>(i - 1, j), scratch.at<Vec3b>(i - 1, j + 1), scratch.at<Vec3b>(i, j - 1), scratch.at<Vec3b>(i, j), scratch.at<Vec3b>(i, j + 1), scratch.at<Vec3b>(i + 1, j - 1), scratch.at<Vec3b>(i + 1, j), scratch.at<Vec3b>(i + 1, j + 1)};
+
+            int count = 0;
+
+            for(int i = 0; i < 9; i++) {
+                if((b[i])[0] == 0 && (b[i])[2] == 0 && (b[i])[2] == 0) {
+                    count++;
+                }
+            }
+
+            if(count > x) {
+                pixel = {0, 0, 0};
+            }
 
             scratch.at<Vec3b>(i, j) = pixel;
         }
@@ -345,7 +407,79 @@ void Image::bleach()
     }
 }
 
-int* Image::findObject()
+bool Image::isBlack(Vec3b pixel)
+{
+    int b = pixel[0];
+    int g = pixel[1];
+    int r = pixel[2];
+
+    if (b == 0 && g == 0 && r == 0)
+    {
+        return true;
+    }
+    return false;
+}
+
+int *Image::findObject()
+{
+    int mini = scratch.rows;
+    int maxi = -1;
+    int minj = scratch.cols;
+    int maxj = -1;
+
+    for (int i = 0; i < scratch.rows; i++)
+    {
+        for (int j = 0; j < scratch.cols; j++)
+        {
+            Vec3b pixel = scratch.at<Vec3b>(i, j);
+
+            if (!(isBlack(pixel)))
+            {
+                if (i < mini)
+                {
+                    mini = i;
+                }
+                if (i > maxi)
+                {
+                    maxi = i;
+                }
+
+                if (j < minj)
+                {
+                    minj = j;
+                }
+                if (j > maxj)
+                {
+                    maxj = j;
+                }
+            }
+        }
+    }
+
+    cout << mini << " " << minj << " " << maxi << " " << maxj << endl;
+
+    for (int i = 0; i < image.rows; i++)
+    {
+        for (int j = 0; j < image.cols; j++)
+        {
+            Vec3b pixel = image.at<Vec3b>(i, j);
+            if (
+                ((i == mini || i == maxi) && (j >= minj && j <= maxj)) ||
+                ((j == minj || j == maxj) && (i >= mini && i <= maxi)))
+            {
+                pixel[2] = 255;
+                pixel[0] = pixel[1] = 0;
+            }
+
+            image.at<Vec3b>(i, j) = pixel;
+        }
+    }
+
+    int bounds[4] = {mini, minj, maxi, maxj};
+    return bounds;
+}
+
+int *Image::findObjecto()
 {
 
     int WHITE_THRESHOLD = 230;

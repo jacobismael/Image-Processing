@@ -28,7 +28,13 @@ class Image
     void highfilter(double p);
     
     void bleach();
+
+    void smidge(int x);
+
+    int* findObjecto();
     int* findObject();
+
+    bool isBlack(Vec3b pixel);
 
     Mat getImage();
     Mat getScratch();

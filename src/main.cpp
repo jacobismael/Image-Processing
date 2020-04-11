@@ -9,7 +9,7 @@ using namespace cv;
 
 int main(int argc, char **argv)
 {
-    if (argc != 7)
+    if (argc != 8)
     {
         if (argc == 2)
         {
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    Image image(argv[6]);
+    Image image(argv[7]);
 
     if (!image.getImage().data)
     {
@@ -63,16 +63,25 @@ int main(int argc, char **argv)
     }
     image.fillBinaryMat();
 
-    stringstream strx4(argv[5]);
+    stringstream strx4(argv[4]);
     x = 0;
     strx4 >> x;
-    if(x > 0) {
+    for(int i = 0; i < x; i++) {
         image.median();
     }
 
-    stringstream strx5(argv[6]);
+    stringstream strx5(argv[5]);
     x = 0;
     strx5 >> x;
+    if(x > 0) {
+        image.smidge(x);
+    }
+
+    image.findObject();
+
+    stringstream strx6(argv[6]);
+    x = 0;
+    strx6 >> x;
     Mat img = image.getImage();
 
     if (x == 1)
