@@ -15,9 +15,13 @@ int main(int argc, char **argv)
         {
             Image image(argv[1]);
 
-            image.median();
+            image.threshold();
 
-            Mat img = image.getScratch();
+            image.highfilter(0.1);
+
+            image.findObject();
+
+            Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
 
