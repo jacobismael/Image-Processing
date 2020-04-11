@@ -60,10 +60,10 @@ RM = /usr/local/Cellar/cmake/3.17.0_1/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/jacob/projects/ocv
+CMAKE_SOURCE_DIR = /Users/jacob/projects/cv_obj_detect
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/jacob/projects/ocv/build
+CMAKE_BINARY_DIR = /Users/jacob/projects/cv_obj_detect/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -76,42 +76,42 @@ include CMakeFiles/main.dir/flags.make
 
 CMakeFiles/main.dir/src/box.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/box.cpp.o: ../src/box.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jacob/projects/ocv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/box.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/box.cpp.o -c /Users/jacob/projects/ocv/src/box.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jacob/projects/cv_obj_detect/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/box.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/box.cpp.o -c /Users/jacob/projects/cv_obj_detect/src/box.cpp
 
 CMakeFiles/main.dir/src/box.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/box.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jacob/projects/ocv/src/box.cpp > CMakeFiles/main.dir/src/box.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jacob/projects/cv_obj_detect/src/box.cpp > CMakeFiles/main.dir/src/box.cpp.i
 
 CMakeFiles/main.dir/src/box.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/box.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jacob/projects/ocv/src/box.cpp -o CMakeFiles/main.dir/src/box.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jacob/projects/cv_obj_detect/src/box.cpp -o CMakeFiles/main.dir/src/box.cpp.s
 
 CMakeFiles/main.dir/src/image.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/image.cpp.o: ../src/image.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jacob/projects/ocv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/image.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/image.cpp.o -c /Users/jacob/projects/ocv/src/image.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jacob/projects/cv_obj_detect/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/image.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/image.cpp.o -c /Users/jacob/projects/cv_obj_detect/src/image.cpp
 
 CMakeFiles/main.dir/src/image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/image.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jacob/projects/ocv/src/image.cpp > CMakeFiles/main.dir/src/image.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jacob/projects/cv_obj_detect/src/image.cpp > CMakeFiles/main.dir/src/image.cpp.i
 
 CMakeFiles/main.dir/src/image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/image.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jacob/projects/ocv/src/image.cpp -o CMakeFiles/main.dir/src/image.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jacob/projects/cv_obj_detect/src/image.cpp -o CMakeFiles/main.dir/src/image.cpp.s
 
 CMakeFiles/main.dir/src/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jacob/projects/ocv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/main.cpp.o -c /Users/jacob/projects/ocv/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jacob/projects/cv_obj_detect/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/main.cpp.o -c /Users/jacob/projects/cv_obj_detect/src/main.cpp
 
 CMakeFiles/main.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jacob/projects/ocv/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jacob/projects/cv_obj_detect/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
 
 CMakeFiles/main.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jacob/projects/ocv/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jacob/projects/cv_obj_detect/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
 
 # Object files for target main
 main_OBJECTS = \
@@ -176,7 +176,7 @@ main: /usr/local/lib/libopencv_photo.4.2.0.dylib
 main: /usr/local/lib/libopencv_imgproc.4.2.0.dylib
 main: /usr/local/lib/libopencv_core.4.2.0.dylib
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jacob/projects/ocv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jacob/projects/cv_obj_detect/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -189,6 +189,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	cd /Users/jacob/projects/ocv/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/jacob/projects/ocv /Users/jacob/projects/ocv /Users/jacob/projects/ocv/build /Users/jacob/projects/ocv/build /Users/jacob/projects/ocv/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/jacob/projects/cv_obj_detect/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/jacob/projects/cv_obj_detect /Users/jacob/projects/cv_obj_detect /Users/jacob/projects/cv_obj_detect/build /Users/jacob/projects/cv_obj_detect/build /Users/jacob/projects/cv_obj_detect/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main.dir/depend
 
