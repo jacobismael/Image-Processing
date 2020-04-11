@@ -9,7 +9,7 @@ using namespace cv;
 
 int main(int argc, char **argv)
 {
-    if (argc != 7)
+    if (argc != 9)
     {
         if (argc == 2)
         {
