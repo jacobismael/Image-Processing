@@ -6,5 +6,5 @@ CXX_FLAGS = -Wall -g -isysroot /Applications/Xcode.app/Contents/Developer/Platfo
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/jacob/projects/cv_obj_detect/include -isystem /usr/local/Cellar/opencv/4.2.0_4/include/opencv4 
+CXX_INCLUDES = -I/Users/jacob/projects/cpp/cv_obj_detect/include -isystem /usr/local/Cellar/opencv/4.2.0_4/include/opencv4 
 
