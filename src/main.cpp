@@ -15,13 +15,16 @@ int main(int argc, char **argv)
         {
             Image image(argv[1]);
 
-            image.threshold();
+            cout << image.getImage().size() << endl;
 
-            image.highfilter(0.1);
+            Mat img = image.getScratch();
 
-            image.findObject();
+            
+            img.convertTo(img, CV_64FC1);
+            cout << img.type() << endl;
 
-            Mat img = image.getImage();
+            cv::dct(img, img, 0);
+            
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
 

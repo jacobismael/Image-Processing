@@ -16,22 +16,6 @@ iostream
 opencv2/opencv.hpp
 -
 
-/Users/jacob/projects/cpp/cv_obj_detect/src/box.cpp
-opencv2/opencv.hpp
--
-iostream
--
-box.hpp
--
-
-/Users/jacob/projects/cpp/cv_obj_detect/src/image.cpp
-opencv2/opencv.hpp
--
-iostream
--
-image.hpp
--
-
 /Users/jacob/projects/cpp/cv_obj_detect/src/main.cpp
 opencv2/opencv.hpp
 -
