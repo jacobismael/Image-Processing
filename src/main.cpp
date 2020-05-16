@@ -10,6 +10,7 @@ using namespace cv;
 
 int main(int argc, char **argv)
 {
+    // Get the current time
     auto start = chrono::steady_clock::now();
     if (argc != 8)
     {
@@ -22,9 +23,11 @@ int main(int argc, char **argv)
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
-            auto end = chrono::steady_clock::now();
-            auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
 
+            // Get the current time again
+            auto end = chrono::steady_clock::now();
+            // Calculate the difference between the start and the end and print the result
+            auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
             cout << "Finished in " << elapsed << "s" << endl;
 
             waitKey(0);

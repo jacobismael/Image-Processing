@@ -29,7 +29,9 @@ Or,
 Which by default, the program will run based on what is put in this section of main.cpp:
 
 ```cpp
-if (argc != 8)
+// Get the current time
+    auto start = chrono::steady_clock::now();
+    if (argc != 8)
     {
         if (argc == 2)
         {
@@ -40,6 +42,12 @@ if (argc != 8)
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
+
+            // Get the current time again
+            auto end = chrono::steady_clock::now();
+            // Calculate the difference between the start and the end and print the result
+            auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
+            cout << "Finished in " << elapsed << "s" << endl;
 
             waitKey(0);
 
