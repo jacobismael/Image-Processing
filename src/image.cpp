@@ -457,7 +457,7 @@ int *Image::findObject()
         }
     }
 
-    cout << mini << " " << minj << " " << maxi << " " << maxj << endl;
+    // cout << mini << " " << minj << " " << maxi << " " << maxj << endl;
 
     for (int i = 0; i < image.rows; i++)
     {

@@ -6,28 +6,16 @@
 
 #IncludeRegexTransform: 
 
-../include/box.hpp
-opencv2/opencv.hpp
--
-iostream
--
-
 ../include/image.hpp
 opencv2/opencv.hpp
 -
 
-/Users/jacob/projects/cpp/CV-Detect/src/main.cpp
+/Users/jacob/projects/cpp/CV-Detect/src/image.cpp
 opencv2/opencv.hpp
 -
 iostream
 -
 image.hpp
--
-sstream
--
-box.hpp
--
-chrono
 -
 
 /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/calib3d.hpp

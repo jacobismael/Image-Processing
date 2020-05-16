@@ -35,7 +35,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    Image image(argv[7]);
+    Image image(argv[1]);
 
     if (!image.getImage().data)
     {
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    stringstream strx(argv[1]);
+    stringstream strx(argv[2]);
     int x = 0;
     strx >> x;
 
@@ -52,13 +52,13 @@ int main(int argc, char **argv)
         image.lowfilter();
     }
 
-    stringstream strx2(argv[2]);
+    stringstream strx2(argv[3]);
     x = 0;
     strx2 >> x;
     if(x > 0){
         image.threshold(x);
     }
-    stringstream strx3(argv[3]);
+    stringstream strx3(argv[4]);
     double y = 0;
     strx3 >> y;
     if(y > 0) {
@@ -66,14 +66,14 @@ int main(int argc, char **argv)
     }
     image.fillBinaryMat();
 
-    stringstream strx4(argv[4]);
+    stringstream strx4(argv[5]);
     x = 0;
     strx4 >> x;
     for(int i = 0; i < x; i++) {
         image.median();
     }
 
-    stringstream strx5(argv[5]);
+    stringstream strx5(argv[6]);
     x = 0;
     strx5 >> x;
     if(x > 0) {
@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 
     image.findObject();
 
-    stringstream strx6(argv[6]);
+    stringstream strx6(argv[7]);
     x = 0;
     strx6 >> x;
     Mat img = image.getImage();
