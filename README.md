@@ -1,13 +1,17 @@
 # cv_obj_detect
-
+![Github Repo Size](https://img.shields.io/github/repo-size/jacobismael/cv_obj_detect?style=for-the-badge)
+![Github Code Size](https://img.shields.io/github/languages/code-size/jacobismael/cv_obj_detect?style=for-the-badge)
+![Github Top Language](https://img.shields.io/github/languages/top/jacobismael/cv_obj_detect?style=for-the-badge)
+![Github Language Count](https://img.shields.io/github/languages/count/jacobismael/cv_obj_detect?style=for-the-badge)
+- - -
 A C++ program that uses OpenCV image processing to find objects in a scene.
 
 Looking to implement optimizations so that it runs smoothly for videos
 
 # Running the Project
-In the Terminal:
+Type the following command in the Terminal:
 ```bash
-./main filepath blur(intensity) threshold(level) median(1/0) edge(%) image-return
+./main <filepath> <blur> <threshold> <median> <edge> <image-return>
 ```
 blur: # of times
 
@@ -16,3 +20,32 @@ threshold: level of which any pixel value lower than it drops to 0
 median: any number greater than 1 takes a region of pixel values and sets them to the median
 
 edge: % of allowance
+
+Or,
+```bash
+./main <filepath>
+```
+
+By default, the program will run based on what is put in this section of main.cpp
+
+```cpp
+if (argc != 8)
+    {
+        if (argc == 2)
+        {
+            Image image(argv[1]);
+
+            // Do specified stuff here
+
+            Mat img = image.getImage();
+            namedWindow("Display Image", WINDOW_AUTOSIZE);
+            imshow("Display Image", img);
+
+            waitKey(0);
+
+            return 0;
+        }
+        cout << "usage: DisplayImage.out <Image_Path>" << endl;
+        return -1;
+    }
+```

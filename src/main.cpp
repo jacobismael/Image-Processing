@@ -15,16 +15,9 @@ int main(int argc, char **argv)
         {
             Image image(argv[1]);
 
-            cout << image.getImage().size() << endl;
+            // Do specified stuff here
 
-            Mat img = image.getScratch();
-            Mat scratch = image.getScratch();
-
-            
-            img.convertTo(img, CV_32FC1);
-
-            cv::dct(img, scratch, 0);
-            
+            Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
 
