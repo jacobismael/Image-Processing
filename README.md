@@ -27,7 +27,7 @@ Or,
 ./main <filepath>
 ```
 
-By default, the program will run based on what is put in this section of main.cpp
+By default, the program will run based on what is put in this section of main.cpp:
 
 ```cpp
 if (argc != 8)
