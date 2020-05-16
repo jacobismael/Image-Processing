@@ -18,12 +18,12 @@ int main(int argc, char **argv)
             cout << image.getImage().size() << endl;
 
             Mat img = image.getScratch();
+            Mat scratch = image.getScratch();
 
             
-            img.convertTo(img, CV_64FC1);
-            cout << img.type() << endl;
+            img.convertTo(img, CV_32FC1);
 
-            cv::dct(img, img, 0);
+            cv::dct(img, scratch, 0);
             
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
@@ -52,6 +52,7 @@ int main(int argc, char **argv)
     {
         image.lowfilter();
     }
+
     stringstream strx2(argv[2]);
     x = 0;
     strx2 >> x;

@@ -4,6 +4,7 @@
 using namespace std;
 using namespace cv;
 
+// @param filepath
 Image::Image(string filepath)
 {
     this->image = imread(filepath, 1);
