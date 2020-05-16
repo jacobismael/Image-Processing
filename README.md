@@ -36,7 +36,7 @@ if (argc != 8)
         {
             Image image(argv[1]);
 
-            // Do specified stuff here
+            // Do the specified stuff here
 
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
