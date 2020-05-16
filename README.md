@@ -30,32 +30,32 @@ Which by default, the program will run based on what is put in this section of m
 
 ```cpp
 // Get the current time
-    auto start = chrono::steady_clock::now();
-    if (argc != 8)
+auto start = chrono::steady_clock::now();
+if (argc != 8)
+{
+    if (argc == 2)
     {
-        if (argc == 2)
-        {
-            Image image(argv[1]);
+        Image image(argv[1]);
 
-            // Do the specified stuff here
+        // Do the specified stuff here
 
-            Mat img = image.getImage();
-            namedWindow("Display Image", WINDOW_AUTOSIZE);
-            imshow("Display Image", img);
+        Mat img = image.getImage();
+        namedWindow("Display Image", WINDOW_AUTOSIZE);
+        imshow("Display Image", img);
 
-            // Get the current time again
-            auto end = chrono::steady_clock::now();
-            // Calculate the difference between the start and the end and print the result
-            auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
-            cout << "Finished in " << elapsed << "s" << endl;
+        // Get the current time again
+        auto end = chrono::steady_clock::now();
+        // Calculate the difference between the start and the end and print the result
+        auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
+        cout << "Finished in " << elapsed << "s" << endl;
 
-            waitKey(0);
+        waitKey(0);
 
-            return 0;
-        }
-        cout << "usage: DisplayImage.out <Image_Path>" << endl;
-        return -1;
+        return 0;
     }
+    cout << "usage: DisplayImage.out <Image_Path>" << endl;
+    return -1;
+}
 ```
 
 - - -
