@@ -49,6 +49,6 @@ if (argc != 8)
         return -1;
     }
 ```
-![OpenCV](https://opencv.org/wp-content/uploads/2019/02/opencv-logo-1.png)
+![OpenCV](https://avatars1.githubusercontent.com/u/5009934?s=200&v=4)
 
 This project was built using [OpenCV](https://opencv.org/):
