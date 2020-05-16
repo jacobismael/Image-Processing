@@ -1,8 +1,9 @@
-# cv_obj_detect
+# OpenCV Object Detection
 ![Github Repo Size](https://img.shields.io/github/repo-size/jacobismael/cv_obj_detect?style=for-the-badge)
 ![Github Code Size](https://img.shields.io/github/languages/code-size/jacobismael/cv_obj_detect?style=for-the-badge)
 ![Github Top Language](https://img.shields.io/github/languages/top/jacobismael/cv_obj_detect?style=for-the-badge)
 ![Github Language Count](https://img.shields.io/github/languages/count/jacobismael/cv_obj_detect?style=for-the-badge)
+![Github Last Commit](https://img.shields.io/github/last-commit/jacobismael/cv_obj_detect?style=for-the-badge)
 - - -
 A C++ program that uses OpenCV image processing to find objects in a scene.
 
