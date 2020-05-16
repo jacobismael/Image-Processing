@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/jacob/projects/cpp/cv_obj_detect/src/box.cpp" "/Users/jacob/projects/cpp/cv_obj_detect/build/CMakeFiles/main.dir/src/box.cpp.o"
-  "/Users/jacob/projects/cpp/cv_obj_detect/src/image.cpp" "/Users/jacob/projects/cpp/cv_obj_detect/build/CMakeFiles/main.dir/src/image.cpp.o"
-  "/Users/jacob/projects/cpp/cv_obj_detect/src/main.cpp" "/Users/jacob/projects/cpp/cv_obj_detect/build/CMakeFiles/main.dir/src/main.cpp.o"
+  "/Users/jacob/projects/cpp/CV-Detect/src/box.cpp" "/Users/jacob/projects/cpp/CV-Detect/build/CMakeFiles/main.dir/src/box.cpp.o"
+  "/Users/jacob/projects/cpp/CV-Detect/src/image.cpp" "/Users/jacob/projects/cpp/CV-Detect/build/CMakeFiles/main.dir/src/image.cpp.o"
+  "/Users/jacob/projects/cpp/CV-Detect/src/main.cpp" "/Users/jacob/projects/cpp/CV-Detect/build/CMakeFiles/main.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

@@ -3,7 +3,7 @@
 
 CMakeFiles/main.dir/src/box.cpp.o
  ../include/box.hpp
- /Users/jacob/projects/cpp/cv_obj_detect/src/box.cpp
+ /Users/jacob/projects/cpp/CV-Detect/src/box.cpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/calib3d.hpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/core.hpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/core/affine.hpp
@@ -129,7 +129,7 @@ CMakeFiles/main.dir/src/box.cpp.o
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/videostab/wobble_suppression.hpp
 CMakeFiles/main.dir/src/image.cpp.o
  ../include/image.hpp
- /Users/jacob/projects/cpp/cv_obj_detect/src/image.cpp
+ /Users/jacob/projects/cpp/CV-Detect/src/image.cpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/calib3d.hpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/core.hpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/core/affine.hpp
@@ -256,7 +256,7 @@ CMakeFiles/main.dir/src/image.cpp.o
 CMakeFiles/main.dir/src/main.cpp.o
  ../include/box.hpp
  ../include/image.hpp
- /Users/jacob/projects/cpp/cv_obj_detect/src/main.cpp
+ /Users/jacob/projects/cpp/CV-Detect/src/main.cpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/calib3d.hpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/core.hpp
  /usr/local/Cellar/opencv/4.2.0_4/include/opencv4/opencv2/core/affine.hpp

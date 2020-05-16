@@ -12,7 +12,7 @@ Looking to implement optimizations so that it runs smoothly for videos
 # Running the Project
 Type the following command in the Terminal:
 ```bash
-./main <filepath> <blur> <threshold> <median> <edge> <image-return>
+./main <filepath> [<blur> <threshold> <median> <edge> <image-return>]
 ```
 blur: # of times
 
@@ -27,7 +27,7 @@ Or,
 ./main <filepath>
 ```
 
-By default, the program will run based on what is put in this section of main.cpp:
+Which by default, the program will run based on what is put in this section of main.cpp:
 
 ```cpp
 if (argc != 8)

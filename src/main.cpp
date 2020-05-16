@@ -3,12 +3,14 @@
 #include <image.hpp>
 #include <sstream>
 #include <box.hpp>
+#include <chrono>
 
 using namespace std;
 using namespace cv;
 
 int main(int argc, char **argv)
 {
+    auto start = chrono::steady_clock::now();
     if (argc != 8)
     {
         if (argc == 2)
@@ -16,10 +18,15 @@ int main(int argc, char **argv)
             Image image(argv[1]);
 
             // Do the specified stuff here
+            
 
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
+            auto end = chrono::steady_clock::now();
+            auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
+
+            cout << "Finished in " << elapsed << "s" << endl;
 
             waitKey(0);
 
@@ -96,6 +103,9 @@ int main(int argc, char **argv)
 
     namedWindow("Display Image", WINDOW_AUTOSIZE);
     imshow("Display Image", img);
+    auto end = chrono::steady_clock::now();
+    auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
+    cout << "Finished in " << elapsed << "s" << endl;
 
     waitKey(0);
 
