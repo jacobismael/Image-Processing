@@ -18,7 +18,6 @@ int main(int argc, char **argv)
             Image image(argv[1]);
 
             // Do the specified stuff here
-            
 
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
