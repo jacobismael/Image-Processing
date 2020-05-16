@@ -2,7 +2,7 @@
 ![Github Repo Size](https://img.shields.io/github/repo-size/jacobismael/CV-Detect?style=for-the-badge)
 ![Github Code Size](https://img.shields.io/github/languages/code-size/jacobismael/CV-Detect?style=for-the-badge)
 ![Github Top Language](https://img.shields.io/github/languages/top/jacobismael/CV-Detect?color=%23f34b7d&style=for-the-badge)
-![Github Language Count](https://img.shields.io/github/languages/count/jacobismael/CV-Detect?style=for-the-badge)
+![Github Language Count](https://img.shields.io/github/languages/count/jacobismael/CV-Detect?style=for-the-badge&color=green)
 - - -
 A C++ program that uses OpenCV image processing to find objects in a scene.
 
