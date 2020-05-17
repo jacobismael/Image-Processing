@@ -1,0 +1,3 @@
+/Users/jacob/projects/cpp/CV-Detect/build/CMakeFiles/rebuild_cache.dir
+/Users/jacob/projects/cpp/CV-Detect/build/CMakeFiles/edit_cache.dir
+/Users/jacob/projects/cpp/CV-Detect/build/CMakeFiles/main.dir
