@@ -9,9 +9,24 @@ A C++ program that uses OpenCV image processing to find objects in a scene.
 Looking to implement optimizations so that it runs smoothly for videos
 
 # Installing the Project
-When you clone the repository, make sure to clear the build path
+When you clone the repository, create a new directory called build using the following command:
+
+```bash
+mkdir build
+```
+
+After that, use this command in the build directory to build the cmake files:
+
+```bash
+cmake ..
+```
 
 # Running the Project
+Use the following command to use make to create the executable:
+```bash
+make
+```
+
 Type the following command in the Terminal:
 ```bash
 ./main <filepath> [<blur> <threshold> <median> <edge> <image-return>]
