@@ -7,7 +7,7 @@ using namespace cv;
 // @param filepath
 Image::Image(string filepath)
 {
-    this->image = imread(filepath, 1);
+    this->image = imread(filepath, 0);
     image.copyTo(scratch);
 
     binaryMat = Mat(image.size(), CV_8U);

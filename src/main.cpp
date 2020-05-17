@@ -20,6 +20,8 @@ int main(int argc, char **argv)
 
             // Do the specified stuff here
 
+
+
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
@@ -35,6 +37,7 @@ int main(int argc, char **argv)
             return 0;
         }
         cout << "usage: DisplayImage.out <Image_Path>" << endl;
+        cout << "Error: 2 or 8 parameters required" << endl;
         return -1;
     }
 
