@@ -8,6 +8,9 @@ A C++ program that uses OpenCV image processing to find objects in a scene.
 
 Looking to implement optimizations so that it runs smoothly for videos
 
+# Installing the Project
+When you clone the repository, make sure to clear the build path
+
 # Running the Project
 Type the following command in the Terminal:
 ```bash
