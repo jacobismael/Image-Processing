@@ -1,8 +1,6 @@
 /vscode/*
 /build/*
 
-test.py
-
 # Prerequisites
 *.d
 
