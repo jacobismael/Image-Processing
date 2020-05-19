@@ -21,6 +21,8 @@ After that, use this command in the build directory to build the cmake files:
 cmake ..
 ```
 
+> It is critical that you perform this command in the build directory
+
 # Running the Project
 Use the following command to use make to create the executable:
 ```bash
