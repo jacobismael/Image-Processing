@@ -4,13 +4,32 @@
 using namespace std;
 using namespace cv;
 
-// @param filepath
+// @param filepath - path to image
 Image::Image(string filepath)
 {
     this->image = imread(filepath, 0);
     image.copyTo(scratch);
 
     binaryMat = Mat(image.size(), CV_8U);
+
+    // Create grayscale image from normal image
+    Mat temp = imread(filepath, IMREAD_GRAYSCALE);
+
+    // for DCT, image dimensions must be multiples of 2:
+    int w = temp.cols;
+    int h = temp.rows;
+    int w2, h2;
+    w2 = (w % 2 == 0) ? w : w + 1;
+    h2 = (h % 2 == 0) ? h : h + 1;
+
+    // extending the input image with a border if its original width and height
+    // are not multiples of 2:
+    copyMakeBorder(temp, grayscale, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
+
+    // Converting Grayscale image's 8bits per pixel to float values as required by dct():
+    Mat temp2 = Mat(grayscale.rows, grayscale.cols, CV_64F);
+    grayscale.convertTo(temp2, CV_64F);
+    dct(temp2, freqMap);
 }
 
 Mat Image::getImage()
@@ -28,6 +47,16 @@ Mat Image::getBinaryMat()
     return binaryMat;
 }
 
+Mat Image::getGrayScale()
+{
+    return grayscale;
+}
+
+Mat Image::getFrequencyMap()
+{
+    return freqMap;
+}
+
 void Image::setImage(string filepath)
 {
     this->image = imread(filepath, 1);
@@ -39,100 +68,51 @@ void Image::setImage(string filepath)
 // pixel[1] <-green
 // pixel[2] <-red
 
-void Image::lowfilter()
+void Image::lowfilter(int threshold)
 {
 
-    for (int i = 1; i < scratch.rows - 1 - 1; i++)
+    Mat freqScratch;
+    freqMap.copyTo(freqScratch);
+
+    // The following is a low pass filter on the DCT
+    for (auto i = 0; i < freqScratch.rows; i++)
     {
-        for (int j = 1; j < scratch.cols - 1 - 1; j++)
+        for (auto j = 0; j < freqScratch.cols; j++)
         {
-            Vec3b pixel = scratch.at<Vec3b>(i, j);
-
-            if (i - 1 < 0)
+            if ((i > threshold) || (j > threshold))
             {
-                scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i - 1, j) = {0, 0, 0};
-                scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
+                freqScratch.at<double>(i, j) = 0.0;
             }
-
-            if (i + 1 > scratch.rows - 1)
-            {
-                scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
-            }
-
-            if (j - 1 < 0)
-            {
-                scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
-            }
-
-            if (j + 1 > scratch.cols - 1)
-            {
-                scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i, j + 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
-            }
-
-            pixel[0] = (scratch.at<Vec3b>(i - 1, j - 1)[0] + scratch.at<Vec3b>(i - 1, j)[0] + scratch.at<Vec3b>(i - 1, j + 1)[0] + scratch.at<Vec3b>(i, j - 1)[0] + scratch.at<Vec3b>(i, j)[0] + scratch.at<Vec3b>(i, j + 1)[0] + scratch.at<Vec3b>(i + 1, j - 1)[0] + scratch.at<Vec3b>(i + 1, j)[0] + scratch.at<Vec3b>(i + 1, j + 1)[0]) / 9;
-            pixel[1] = (scratch.at<Vec3b>(i - 1, j - 1)[1] + scratch.at<Vec3b>(i - 1, j)[1] + scratch.at<Vec3b>(i - 1, j + 1)[1] + scratch.at<Vec3b>(i, j - 1)[1] + scratch.at<Vec3b>(i, j)[1] + scratch.at<Vec3b>(i, j + 1)[1] + scratch.at<Vec3b>(i + 1, j - 1)[1] + scratch.at<Vec3b>(i + 1, j)[1] + scratch.at<Vec3b>(i + 1, j + 1)[1]) / 9;
-            pixel[2] = (scratch.at<Vec3b>(i - 1, j - 1)[2] + scratch.at<Vec3b>(i - 1, j)[2] + scratch.at<Vec3b>(i - 1, j + 1)[2] + scratch.at<Vec3b>(i, j - 1)[2] + scratch.at<Vec3b>(i, j)[2] + scratch.at<Vec3b>(i, j + 1)[2] + scratch.at<Vec3b>(i + 1, j - 1)[2] + scratch.at<Vec3b>(i + 1, j)[2] + scratch.at<Vec3b>(i + 1, j + 1)[2]) / 9;
-
-            scratch.at<Vec3b>(i, j) = pixel;
         }
     }
+
+    Mat filteredScratch;
+
+    dct(freqScratch, filteredScratch, DCT_INVERSE);
+
+    filteredScratch.convertTo(scratch, CV_8UC1);
 }
 
-void Image::lowfilter(int times)
+void Image::resetDCT(string filepath)
 {
+    // Create grayscale image from normal image
+    Mat temp = imread(filepath, IMREAD_GRAYSCALE);
 
-    for (int t = 0; t < times; t++)
-    {
+    // for DCT, image dimensions must be multiples of 2:
+    int w = temp.cols;
+    int h = temp.rows;
+    int w2, h2;
+    w2 = (w % 2 == 0) ? w : w + 1;
+    h2 = (h % 2 == 0) ? h : h + 1;
 
-        for (int i = 1; i < scratch.rows - 1 - 1; i++)
-        {
-            for (int j = 1; j < scratch.cols - 1 - 1; j++)
-            {
-                Vec3b pixel = scratch.at<Vec3b>(i, j);
+    // extending the input image with a border if its original width and height
+    // are not multiples of 2:
+    copyMakeBorder(temp, grayscale, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
 
-                if (i - 1 < 0)
-                {
-                    scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
-                    scratch.at<Vec3b>(i - 1, j) = {0, 0, 0};
-                    scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
-                }
-
-                if (i + 1 > scratch.rows - 1)
-                {
-                    scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
-                    scratch.at<Vec3b>(i + 1, j) = {0, 0, 0};
-                    scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
-                }
-
-                if (j - 1 < 0)
-                {
-                    scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
-                    scratch.at<Vec3b>(i, j - 1) = {0, 0, 0};
-                    scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
-                }
-
-                if (j + 1 > scratch.cols - 1)
-                {
-                    scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
-                    scratch.at<Vec3b>(i, j + 1) = {0, 0, 0};
-                    scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
-                }
-
-                pixel[0] = (scratch.at<Vec3b>(i - 1, j - 1)[0] + scratch.at<Vec3b>(i - 1, j)[0] + scratch.at<Vec3b>(i - 1, j + 1)[0] + scratch.at<Vec3b>(i, j - 1)[0] + scratch.at<Vec3b>(i, j)[0] + scratch.at<Vec3b>(i, j + 1)[0] + scratch.at<Vec3b>(i + 1, j - 1)[0] + scratch.at<Vec3b>(i + 1, j)[0] + scratch.at<Vec3b>(i + 1, j + 1)[0]) / 9;
-                pixel[1] = (scratch.at<Vec3b>(i - 1, j - 1)[1] + scratch.at<Vec3b>(i - 1, j)[1] + scratch.at<Vec3b>(i - 1, j + 1)[1] + scratch.at<Vec3b>(i, j - 1)[1] + scratch.at<Vec3b>(i, j)[1] + scratch.at<Vec3b>(i, j + 1)[1] + scratch.at<Vec3b>(i + 1, j - 1)[1] + scratch.at<Vec3b>(i + 1, j)[1] + scratch.at<Vec3b>(i + 1, j + 1)[1]) / 9;
-                pixel[2] = (scratch.at<Vec3b>(i - 1, j - 1)[2] + scratch.at<Vec3b>(i - 1, j)[2] + scratch.at<Vec3b>(i - 1, j + 1)[2] + scratch.at<Vec3b>(i, j - 1)[2] + scratch.at<Vec3b>(i, j)[2] + scratch.at<Vec3b>(i, j + 1)[2] + scratch.at<Vec3b>(i + 1, j - 1)[2] + scratch.at<Vec3b>(i + 1, j)[2] + scratch.at<Vec3b>(i + 1, j + 1)[2]) / 9;
-
-                scratch.at<Vec3b>(i, j) = pixel;
-            }
-        }
-    }
+    // Converting Grayscale image's 8bits per pixel to float values as required by dct():
+    Mat temp2 = Mat(grayscale.rows, grayscale.cols, CV_64F);
+    grayscale.convertTo(temp2, CV_64F);
+    dct(temp2, freqMap);
 }
 
 void Image::threshold()
@@ -247,7 +227,6 @@ void Image::median() // sorting needs work
                     }
                 }
             }
-            
 
             for (int l = 0; l < 9; l++)
             {
@@ -271,7 +250,8 @@ void Image::median() // sorting needs work
     }
 }
 
-void Image::smidge(int x) {
+void Image::smidge(int x)
+{
     for (int i = 0; i < scratch.rows; i++)
     {
         for (int j = 0; j < scratch.cols; j++)
@@ -310,13 +290,16 @@ void Image::smidge(int x) {
 
             int count = 0;
 
-            for(int i = 0; i < 9; i++) {
-                if((b[i])[0] == 0 && (b[i])[2] == 0 && (b[i])[2] == 0) {
+            for (int i = 0; i < 9; i++)
+            {
+                if ((b[i])[0] == 0 && (b[i])[2] == 0 && (b[i])[2] == 0)
+                {
                     count++;
                 }
             }
 
-            if(count > x) {
+            if (count > x)
+            {
                 pixel = {0, 0, 0};
             }
 
@@ -325,67 +308,29 @@ void Image::smidge(int x) {
     }
 }
 
-void Image::highfilter(double p = 0.2)
+void Image::highfilter(int threshold)
 {
 
-    Mat scratch2;
-    scratch.copyTo(scratch2);
+    Mat freqScratch;
+    freqMap.copyTo(freqScratch);
 
-    for (int i = 0; i < scratch.rows; i++)
+    // The following is a low pass filter on the DCT
+    for (auto i = 0; i < freqScratch.rows; i++)
     {
-        for (int j = 0; j < scratch.cols; j++)
+        for (auto j = 0; j < freqScratch.cols; j++)
         {
-
-            Vec3b pixel = scratch.at<Vec3b>(i, j);
-            Vec3b pixel2 = scratch2.at<Vec3b>(i, j);
-
-            if (i - 1 < 0)
+            if ((i < threshold) && (j < threshold))
             {
-                scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i - 1, j) = {0, 0, 0};
-                scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
+                freqScratch.at<double>(i, j) = 0.0;
             }
-
-            if (i + 1 > scratch.rows - 1)
-            {
-                scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
-            }
-
-            if (j - 1 < 0)
-            {
-                scratch.at<Vec3b>(i - 1, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i, j - 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j - 1) = {0, 0, 0};
-            }
-
-            if (j + 1 > scratch.cols - 1)
-            {
-                scratch.at<Vec3b>(i - 1, j + 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i, j + 1) = {0, 0, 0};
-                scratch.at<Vec3b>(i + 1, j + 1) = {0, 0, 0};
-            }
-
-            double b = (scratch.at<Vec3b>(i - 1, j - 1)[0] + scratch.at<Vec3b>(i - 1, j)[0] + scratch.at<Vec3b>(i - 1, j + 1)[0] + scratch.at<Vec3b>(i, j - 1)[0] + scratch.at<Vec3b>(i, j)[0] + scratch.at<Vec3b>(i, j + 1)[0] + scratch.at<Vec3b>(i + 1, j - 1)[0] + scratch.at<Vec3b>(i + 1, j)[0] + scratch.at<Vec3b>(i + 1, j + 1)[0]) / 9;
-            double g = (scratch.at<Vec3b>(i - 1, j - 1)[1] + scratch.at<Vec3b>(i - 1, j)[1] + scratch.at<Vec3b>(i - 1, j + 1)[1] + scratch.at<Vec3b>(i, j - 1)[1] + scratch.at<Vec3b>(i, j)[1] + scratch.at<Vec3b>(i, j + 1)[1] + scratch.at<Vec3b>(i + 1, j - 1)[1] + scratch.at<Vec3b>(i + 1, j)[1] + scratch.at<Vec3b>(i + 1, j + 1)[1]) / 9;
-            double r = (scratch.at<Vec3b>(i - 1, j - 1)[2] + scratch.at<Vec3b>(i - 1, j)[2] + scratch.at<Vec3b>(i - 1, j + 1)[2] + scratch.at<Vec3b>(i, j - 1)[2] + scratch.at<Vec3b>(i, j)[2] + scratch.at<Vec3b>(i, j + 1)[2] + scratch.at<Vec3b>(i + 1, j - 1)[2] + scratch.at<Vec3b>(i + 1, j)[2] + scratch.at<Vec3b>(i + 1, j + 1)[2]) / 9;
-
-            if (
-                (pixel[0] < b - (b * p) || (pixel[0] > b + (b * p))) || ((pixel[1] < g - (g * p)) || (pixel[1] > g + (g * p))) || ((pixel[2] < r - (r * p) || pixel[2] > r + (r * p))))
-            {
-                // pixel is an edge
-            }
-            else
-            {
-                pixel2 = {0, 0, 0};
-            }
-
-            scratch2.at<Vec3b>(i, j) = pixel2;
         }
     }
 
-    scratch2.copyTo(scratch);
+    Mat filteredScratch;
+
+    dct(freqScratch, filteredScratch, DCT_INVERSE);
+
+    filteredScratch.convertTo(scratch, CV_8UC1);
 }
 
 void Image::bleach()

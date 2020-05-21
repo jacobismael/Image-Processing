@@ -22,9 +22,10 @@ int main(int argc, char **argv)
 
             // Do the specified stuff here
 
+            image.highfilter(600);
 
 
-            Mat img = image.getImage();
+            Mat img = image.getScratch();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
 
@@ -57,7 +58,7 @@ int main(int argc, char **argv)
 
     for (int i = 0; i < x; i++)
     {
-        image.lowfilter();
+        image.lowfilter(x);
     }
 
     stringstream strx2(argv[3]);
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
         image.threshold(x);
     }
     stringstream strx3(argv[4]);
-    double y = 0;
+    int y = 0;
     strx3 >> y;
     if(y > 0) {
         image.highfilter(y);

@@ -33,13 +33,15 @@ Type the following command in the Terminal:
 ```bash
 ./main <filepath> [<blur> <threshold> <median> <edge> <image-return>]
 ```
-blur: # of times
+blur: threshold value for range of frequencies
 
 threshold: level of which any pixel value lower than it drops to 0
 
 median: any number greater than 1 takes a region of pixel values and sets them to the median
 
-edge: % of allowance
+edge: threshold value for range of frequencies
+
+- - -
 
 Or,
 ```bash

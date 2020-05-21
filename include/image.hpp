@@ -9,13 +9,14 @@ class Image
     Mat image;
     Mat scratch;
     Mat binaryMat;
+    Mat grayscale;
+    Mat freqMap;
 
     public:
     Image(string filepath);
 
     // blur
-    void lowfilter();
-    void lowfilter(int times);
+    void lowfilter(int threshold);
 
     // threshold
     void threshold();
@@ -25,7 +26,7 @@ class Image
     void median();
 
     // edge detection    
-    void highfilter(double p);
+    void highfilter(int threshold);
     
     void bleach();
 
@@ -36,9 +37,13 @@ class Image
 
     bool isBlack(Vec3b pixel);
 
+    void resetDCT(string filepath);
+
     Mat getImage();
     Mat getScratch();
     Mat getBinaryMat();
+    Mat getGrayScale();
+    Mat getFrequencyMap();
     void setImage(string filepath);
 
     void fillBinaryMat();
