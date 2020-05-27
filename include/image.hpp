@@ -12,8 +12,17 @@ class Image
     Mat grayscale;
     Mat freqMap;
 
+    string filepath;
+
+    Mat r;
+    Mat g;
+    Mat b;
+
     public:
     Image(string filepath);
+
+    Mat getDCT(Mat image);
+    void merge();
 
     // blur
     void lowfilter(int threshold);

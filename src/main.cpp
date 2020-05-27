@@ -8,8 +8,6 @@
 using namespace std;
 using namespace cv;
 
-// change
-
 int main(int argc, char **argv)
 {
     // Get the current time
@@ -22,7 +20,7 @@ int main(int argc, char **argv)
 
             // Do the specified stuff here
 
-            image.highfilter(600);
+            image.lowfilter(100);
 
 
             Mat img = image.getScratch();
