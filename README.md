@@ -4,9 +4,9 @@
 ![Github Top Language](https://img.shields.io/github/languages/top/jacobismael/CV-Detect?color=%23f34b7d&style=for-the-badge)
 ![Github Language Count](https://img.shields.io/github/languages/count/jacobismael/CV-Detect?style=for-the-badge&color=success)
 - - -
-A C++ program that uses OpenCV image processing to find objects in a scene.
+A C++ and Python program that uses OpenCV image processing to find faces and recognize them in a scene.
 
-Looking to implement optimizations so that it runs smoothly for videos
+Looking to implement optimizations so that it runs smoothly for videos and then the neural network to recognize the face
 
 # Installing the Project
 When you clone the repository, create a new directory called build using the following command:
@@ -31,15 +31,21 @@ make
 
 Type the following command in the Terminal:
 ```bash
-./main <filepath> [<blur> <threshold> <median> <edge> <image-return>]
+./main <filepath> <blur> <threshold> <median> <edge> <image-return>
 ```
-blur: threshold value for range of frequencies
+- blur: threshold value for range of frequencies
 
-threshold: level of which any pixel value lower than it drops to 0
+- threshold: level of which any pixel value lower than it drops to 0
 
-median: any number greater than 1 takes a region of pixel values and sets them to the median
+- median: any number greater than 1 takes a region of pixel values and sets them to the median
 
-edge: threshold value for range of frequencies
+- edge: threshold value for range of frequencies
+
+- image-return:
+    1. original image
+    2. scratch copy of original with all processes run on it
+    3. A binary image that represents all non-black values
+    4. A frequency Map of the image 
 
 - - -
 

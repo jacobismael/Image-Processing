@@ -105,6 +105,8 @@ int main(int argc, char **argv)
     else if (x == 3)
     {
         img = image.getBinaryMat();
+    } else if(x == 4) {
+        img = image.getFrequencyMap();
     }
 
     namedWindow("Display Image", WINDOW_AUTOSIZE);
