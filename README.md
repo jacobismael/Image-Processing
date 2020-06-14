@@ -42,11 +42,12 @@ Type the following command in the Terminal:
 - edge: threshold value for range of frequencies
 
 - image-return:
+```bash
     1. original image
     2. scratch copy of original with all processes run on it
     3. A binary image that represents all non-black values
     4. A frequency Map of the image 
-
+```
 - - -
 
 Or,
