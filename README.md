@@ -92,5 +92,3 @@ if (argc != 8)
 ![OpenCV](https://avatars1.githubusercontent.com/u/5009934?s=200&v=4)
 
 This project was built using [OpenCV](https://opencv.org/):
-
-test change
