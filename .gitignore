@@ -1,4 +1,7 @@
+# VsCode tools
 /.vscode/*
+
+# Machine specific builds
 /build/*
 
 # Prerequisites
