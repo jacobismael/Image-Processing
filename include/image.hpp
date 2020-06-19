@@ -41,8 +41,8 @@ class Image
 
     void smidge(int x);
 
-    int* findObjecto();
-    int* findObject();
+    void findObjecto();
+    void findObject();
 
     bool isBlack(Vec3b pixel);
 

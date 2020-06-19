@@ -550,7 +550,7 @@ bool Image::isBlack(Vec3b pixel)
     return false;
 }
 
-int *Image::findObject()
+void Image::findObject()
 {
     int mini = scratch.rows;
     int maxi = -1;
@@ -594,22 +594,21 @@ int *Image::findObject()
         {
             Vec3b pixel = image.at<Vec3b>(i, j);
             if (
-                ((i == mini || i == maxi) && (j >= minj && j <= maxj)) ||
-                ((j == minj || j == maxj) && (i >= mini && i <= maxi)))
+                (i >= mini && i <= maxi) && (j >= minj && j <= maxj) )
             {
-                pixel[2] = 255;
-                pixel[0] = pixel[1] = 0;
+                pixel[0] = (pixel[0]-125 < 0) ? 0 : pixel[0]-125;
+                pixel[1] = (pixel[1]-125 < 0) ? 0 : pixel[1]-125;
             }
 
             image.at<Vec3b>(i, j) = pixel;
         }
     }
 
-    int bounds[4] = {mini, minj, maxi, maxj};
-    return bounds;
+    // int bounds[4] = {mini, minj, maxi, maxj};
+    // return bounds;
 }
 
-int *Image::findObjecto()
+void Image::findObjecto()
 {
 
     int WHITE_THRESHOLD = 230;
@@ -665,19 +664,18 @@ int *Image::findObjecto()
         {
             Vec3b pixel = image.at<Vec3b>(i, j);
             if (
-                ((i == mini || i == maxi) && (j >= minj && j <= maxj)) ||
-                ((j == minj || j == maxj) && (i >= mini && i <= maxi)))
+                (i >= mini && i <= maxi) && (j >= minj && j <= maxj) )
             {
-                pixel[2] = 255;
-                pixel[0] = pixel[1] = 0;
+                pixel[0] = (pixel[0]-125 < 0) ? 0 : pixel[0]-125;
+                pixel[1] = (pixel[1]-125 < 0) ? 0 : pixel[1]-125;
             }
 
             image.at<Vec3b>(i, j) = pixel;
         }
     }
 
-    int bounds[4] = {mini, minj, maxi, maxj};
-    return bounds;
+    // int bounds[4] = {mini, minj, maxi, maxj};
+    // return bounds;
 }
 
 void Image::fillBinaryMat()

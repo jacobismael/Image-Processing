@@ -21,16 +21,21 @@ int main(int argc, char **argv)
             // Do the specified stuff here
 
             image.lowfilter(100);
+            // image.highfilter(100);
+
+            image.findObject();
 
 
-            Mat img = image.getScratch();
-            namedWindow("Display Image", WINDOW_AUTOSIZE);
+            Mat img = image.getImage();
+
+            namedWindow("Display Image" , WINDOW_AUTOSIZE);
             imshow("Display Image", img);
-
+            
             // Get the current time again
             auto end = chrono::steady_clock::now();
             // Calculate the difference between the start and the end and print the result
             auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
+
             cout << "Finished in " << elapsed << "s" << endl;
 
             waitKey(0);
@@ -111,7 +116,9 @@ int main(int argc, char **argv)
 
     namedWindow("Display Image", WINDOW_AUTOSIZE);
     imshow("Display Image", img);
+    // Get the current time again
     auto end = chrono::steady_clock::now();
+     // Calculate the difference between the start and the end and print the result
     auto elapsed = (chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1e9 );
     cout << "Finished in " << elapsed << "s" << endl;
 
