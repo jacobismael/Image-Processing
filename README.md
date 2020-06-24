@@ -6,7 +6,7 @@
 - - -
 A C++ program that uses OpenCV basic tools to create image processing tools.
 
-Looking to implement optimizations so that it runs smoothly for videos and then the neural network to recognize the face
+Looking to implement optimizations so that it runs smoothly for videos and then a neural network to recognize the face likely going to be in another project repository.
 
 # Installing the Project
 When you clone the repository, create a new directory called build using the following command:
