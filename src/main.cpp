@@ -2,7 +2,6 @@
 #include <iostream>
 #include <image.hpp>
 #include <sstream>
-#include <box.hpp>
 #include <chrono>
 
 using namespace std;
@@ -23,10 +22,7 @@ int main(int argc, char **argv)
             image.lowfilter(100);
             // image.highfilter(100);
 
-            image.findObject();
-
-
-            Mat img = image.getImage();
+            Mat img = image.getScratch();
 
             namedWindow("Display Image" , WINDOW_AUTOSIZE);
             imshow("Display Image", img);
@@ -110,8 +106,6 @@ int main(int argc, char **argv)
     else if (x == 3)
     {
         img = image.getBinaryMat();
-    } else if(x == 4) {
-        img = image.getFrequencyMap();
     }
 
     namedWindow("Display Image", WINDOW_AUTOSIZE);

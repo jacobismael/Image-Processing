@@ -4,64 +4,14 @@
 using namespace std;
 using namespace cv;
 
-// @param filepath - path to image
+// @param filepath - filepath to image
 Image::Image(string filepath)
 {
     this->image = imread(filepath, 1);
     this->filepath = filepath;
     image.copyTo(scratch);
 
-    image.copyTo(r);
-    image.copyTo(g);
-    image.copyTo(b);
-
     binaryMat = Mat(image.size(), CV_8U);
-
-    // Create grayscale image from normal image
-    Mat temp = imread(filepath, IMREAD_GRAYSCALE);
-
-    // for DCT, image dimensions must be multiples of 2:
-    int w = temp.cols;
-    int h = temp.rows;
-    int w2, h2;
-    w2 = (w % 2 == 0) ? w : w + 1;
-    h2 = (h % 2 == 0) ? h : h + 1;
-
-    // extending the input image with a border if its original width and height
-    // are not multiples of 2:
-    copyMakeBorder(temp, grayscale, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
-
-    // Converting Grayscale image's 8bits per pixel to float values as required by dct():
-    Mat temp2 = Mat(grayscale.rows, grayscale.cols, CV_64F);
-    grayscale.convertTo(temp2, CV_64F);
-    dct(temp2, freqMap);
-
-    for (int i = 0; i < b.rows; i++)
-    {
-        for (int j = 0; j < b.cols; j++)
-        {
-            b.at<Vec3b>(i, j)[1] = 0;
-            b.at<Vec3b>(i, j)[2] = 0;
-        }
-    }
-
-    for (int i = 0; i < g.rows; i++)
-    {
-        for (int j = 0; j < g.cols; j++)
-        {
-            g.at<Vec3b>(i, j)[0] = 0;
-            g.at<Vec3b>(i, j)[2] = 0;
-        }
-    }
-
-    for (int i = 0; i < r.rows; i++)
-    {
-        for (int j = 0; j < r.cols; j++)
-        {
-            r.at<Vec3b>(i, j)[0] = 0;
-            r.at<Vec3b>(i, j)[1] = 0;
-        }
-    }
 }
 
 Mat Image::getImage()
@@ -84,80 +34,16 @@ Mat Image::getGrayScale()
     return grayscale;
 }
 
-Mat Image::getFrequencyMap()
-{
-    return freqMap;
-}
-
-void Image::setImage(string filepath)
-{
-       this->image = imread(filepath, 1);
-    image.copyTo(scratch);
-
-    image.copyTo(r);
-    image.copyTo(g);
-    image.copyTo(b);
-
-    binaryMat = Mat(image.size(), CV_8U);
-
-    // Create grayscale image from normal image
-    Mat temp = imread(filepath, IMREAD_GRAYSCALE);
-
-    // for DCT, image dimensions must be multiples of 2:
-    int w = temp.cols;
-    int h = temp.rows;
-    int w2, h2;
-    w2 = (w % 2 == 0) ? w : w + 1;
-    h2 = (h % 2 == 0) ? h : h + 1;
-
-    // extending the input image with a border if its original width and height
-    // are not multiples of 2:
-    copyMakeBorder(temp, grayscale, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
-
-    // Converting Grayscale image's 8bits per pixel to float values as required by dct():
-    Mat temp2 = Mat(grayscale.rows, grayscale.cols, CV_64F);
-    grayscale.convertTo(temp2, CV_64F);
-    dct(temp2, freqMap);
-
-    for (int i = 0; i < b.rows; i++)
-    {
-        for (int j = 0; j < b.cols; j++)
-        {
-            b.at<Vec3b>(i, j)[1] = 0;
-            b.at<Vec3b>(i, j)[2] = 0;
-        }
-    }
-
-    for (int i = 0; i < g.rows; i++)
-    {
-        for (int j = 0; j < g.cols; j++)
-        {
-            g.at<Vec3b>(i, j)[0] = 0;
-            g.at<Vec3b>(i, j)[2] = 0;
-        }
-    }
-
-    for (int i = 0; i < r.rows; i++)
-    {
-        for (int j = 0; j < r.cols; j++)
-        {
-            r.at<Vec3b>(i, j)[0] = 0;
-            r.at<Vec3b>(i, j)[1] = 0;
-        }
-    }
-}
-
 // pixel[0] <-blue
 // pixel[1] <-green
 // pixel[2] <-red
 
-Mat Image::getDCT(Mat src) {
-    // Create grayscale image from normal image
-    Mat temp = imread(filepath, IMREAD_GRAYSCALE);
+Mat Image::getDCT(Mat src)
+{
 
     // for DCT, image dimensions must be multiples of 2:
-    int w = temp.cols;
-    int h = temp.rows;
+    int w = src.cols;
+    int h = src.rows;
     int w2, h2;
     w2 = (w % 2 == 0) ? w : w + 1;
     h2 = (h % 2 == 0) ? h : h + 1;
@@ -166,7 +52,7 @@ Mat Image::getDCT(Mat src) {
 
     // extending the input image with a border if its original width and height
     // are not multiples of 2:
-    copyMakeBorder(temp, tempgray, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
+    copyMakeBorder(src, tempgray, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
 
     // Converting Grayscale image's 8bits per pixel to float values as required by dct():
     Mat temp2 = Mat(tempgray.rows, tempgray.cols, CV_64F);
@@ -182,38 +68,47 @@ Mat Image::getDCT(Mat src) {
     return src;
 }
 
-// void Image::merge() {
-//     for(int i = 0; i < scratch.rows; i++) {
-//         for(int j = 0; j < scratch.cols; j++) {
-//             Vec3b pixel = {b.at<Vec3b>(i, j)[0], g.at<Vec3b>(i, j)[1], r.at<Vec3b>(i, j)[2]};
-//             scratch.at<Vec3b>(i, j) = pixel;
-//         }
-//     }
-// }
+Mat Image::merge(Mat r, Mat g, Mat b)
+{
+    Mat result(scratch.rows, scratch.cols, CV_8UC3);
+    Mat test[3] = {r, g, b};
+    cv::merge(test, 3, result);
+    return result;
+}
 
 void Image::lowfilter(int threshold)
 {
 
-    Mat freqScratch;
-    freqMap.copyTo(freqScratch);
+    Mat r(scratch.rows, scratch.cols, CV_8UC1);
+    Mat g(scratch.rows, scratch.cols, CV_8UC1);
+    Mat b(scratch.rows, scratch.cols, CV_8UC1);
 
-    // The following is a low pass filter on the DCT
-    for (auto i = 0; i < freqScratch.rows; i++)
+    for (int i = 0; i < b.rows; i++)
     {
-        for (auto j = 0; j < freqScratch.cols; j++)
+        for (int j = 0; j < b.cols; j++)
         {
-            if ((i > threshold) || (j > threshold))
-            {
-                freqScratch.at<double>(i, j) = 0.0;
-            }
+            b.at<uchar>(i, j) = scratch.at<Vec3b>(i, j)[0];
         }
     }
 
-    Mat tempr;
-    r.copyTo(tempr);
-    Mat fr = getDCT(tempr);
+    for (int i = 0; i < g.rows; i++)
+    {
+        for (int j = 0; j < g.cols; j++)
+        {
+            g.at<uchar>(i, j) = scratch.at<Vec3b>(i, j)[1];
+        }
+    }
 
-    // The following is a low pass filter on the DCT
+    for (int i = 0; i < r.rows; i++)
+    {
+        for (int j = 0; j < r.cols; j++)
+        {
+            r.at<uchar>(i, j) = scratch.at<Vec3b>(i, j)[2];
+        }
+    }
+
+    Mat fr = getDCT(r);
+
     for (auto i = 0; i < fr.rows; i++)
     {
         for (auto j = 0; j < fr.cols; j++)
@@ -225,17 +120,12 @@ void Image::lowfilter(int threshold)
         }
     }
 
-    Mat filteredScratchr;
+    Mat filteredr;
+    dct(fr, filteredr, DCT_INVERSE);
+    filteredr.convertTo(r, CV_8UC1);
 
-    dct(fr, filteredScratchr, DCT_INVERSE);
+    Mat fg = getDCT(g);
 
-    filteredScratchr.convertTo(r, CV_8UC1);
-
-    Mat tempg;
-    g.copyTo(tempg);
-    Mat fg = getDCT(tempg);
-
-    // The following is a low pass filter on the DCT
     for (auto i = 0; i < fg.rows; i++)
     {
         for (auto j = 0; j < fg.cols; j++)
@@ -247,17 +137,12 @@ void Image::lowfilter(int threshold)
         }
     }
 
-    Mat filteredScratchg;
+    Mat filteredg;
+    dct(fg, filteredg, DCT_INVERSE);
+    filteredg.convertTo(g, CV_8UC1);
 
-    dct(fg, filteredScratchg, DCT_INVERSE);
+    Mat fb = getDCT(b);
 
-    filteredScratchg.convertTo(g, CV_8UC1);
-
-    Mat tempb;
-    b.copyTo(tempb);
-    Mat fb = getDCT(tempb);
-
-    // The following is a low pass filter on the DCT
     for (auto i = 0; i < fb.rows; i++)
     {
         for (auto j = 0; j < fb.cols; j++)
@@ -269,34 +154,11 @@ void Image::lowfilter(int threshold)
         }
     }
 
-    Mat filteredScratchb;
+    Mat filteredb;
+    dct(fb, filteredb, DCT_INVERSE);
+    filteredb.convertTo(b, CV_8UC1);
 
-    dct(fb, filteredScratchb, DCT_INVERSE);
-
-    filteredScratchb.convertTo(b, CV_8UC1);
-    // merge();
-}
-
-void Image::resetDCT(string filepath)
-{
-    // Create grayscale image from normal image
-    Mat temp = imread(filepath, IMREAD_GRAYSCALE);
-
-    // for DCT, image dimensions must be multiples of 2:
-    int w = temp.cols;
-    int h = temp.rows;
-    int w2, h2;
-    w2 = (w % 2 == 0) ? w : w + 1;
-    h2 = (h % 2 == 0) ? h : h + 1;
-
-    // extending the input image with a border if its original width and height
-    // are not multiples of 2:
-    copyMakeBorder(temp, grayscale, 0, h2 - h, 0, w2 - w, BORDER_REPLICATE);
-
-    // Converting Grayscale image's 8bits per pixel to float values as required by dct():
-    Mat temp2 = Mat(grayscale.rows, grayscale.cols, CV_64F);
-    grayscale.convertTo(temp2, CV_64F);
-    dct(temp2, freqMap);
+    scratch = merge(r, g, b);
 }
 
 void Image::threshold()
@@ -494,27 +356,6 @@ void Image::smidge(int x)
 
 void Image::highfilter(int threshold)
 {
-
-    Mat freqScratch;
-    freqMap.copyTo(freqScratch);
-
-    // The following is a low pass filter on the DCT
-    for (auto i = 0; i < freqScratch.rows; i++)
-    {
-        for (auto j = 0; j < freqScratch.cols; j++)
-        {
-            if ((i < threshold) && (j < threshold))
-            {
-                freqScratch.at<double>(i, j) = 0.0;
-            }
-        }
-    }
-
-    Mat filteredScratch;
-
-    dct(freqScratch, filteredScratch, DCT_INVERSE);
-
-    filteredScratch.convertTo(scratch, CV_8UC1);
 }
 
 void Image::bleach()
@@ -594,10 +435,10 @@ void Image::findObject()
         {
             Vec3b pixel = image.at<Vec3b>(i, j);
             if (
-                (i >= mini && i <= maxi) && (j >= minj && j <= maxj) )
+                (i >= mini && i <= maxi) && (j >= minj && j <= maxj))
             {
-                pixel[0] = (pixel[0]-125 < 0) ? 0 : pixel[0]-125;
-                pixel[1] = (pixel[1]-125 < 0) ? 0 : pixel[1]-125;
+                pixel[0] = (pixel[0] - 125 < 0) ? 0 : pixel[0] - 125;
+                pixel[1] = (pixel[1] - 125 < 0) ? 0 : pixel[1] - 125;
             }
 
             image.at<Vec3b>(i, j) = pixel;
@@ -664,10 +505,10 @@ void Image::findObjecto()
         {
             Vec3b pixel = image.at<Vec3b>(i, j);
             if (
-                (i >= mini && i <= maxi) && (j >= minj && j <= maxj) )
+                (i >= mini && i <= maxi) && (j >= minj && j <= maxj))
             {
-                pixel[0] = (pixel[0]-125 < 0) ? 0 : pixel[0]-125;
-                pixel[1] = (pixel[1]-125 < 0) ? 0 : pixel[1]-125;
+                pixel[0] = (pixel[0] - 125 < 0) ? 0 : pixel[0] - 125;
+                pixel[1] = (pixel[1] - 125 < 0) ? 0 : pixel[1] - 125;
             }
 
             image.at<Vec3b>(i, j) = pixel;

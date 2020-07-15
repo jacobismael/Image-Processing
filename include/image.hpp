@@ -10,19 +10,14 @@ class Image
     Mat scratch;
     Mat binaryMat;
     Mat grayscale;
-    Mat freqMap;
 
     string filepath;
-
-    Mat r;
-    Mat g;
-    Mat b;
 
     public:
     Image(string filepath);
 
     Mat getDCT(Mat image);
-    void merge();
+    Mat merge(Mat r, Mat g, Mat b);
 
     // blur
     void lowfilter(int threshold);
@@ -46,14 +41,10 @@ class Image
 
     bool isBlack(Vec3b pixel);
 
-    void resetDCT(string filepath);
-
     Mat getImage();
     Mat getScratch();
     Mat getBinaryMat();
     Mat getGrayScale();
-    Mat getFrequencyMap();
-    void setImage(string filepath);
 
     void fillBinaryMat();
 };
