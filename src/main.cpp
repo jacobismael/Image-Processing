@@ -19,9 +19,6 @@ int main(int argc, char **argv)
 
             // Do the specified stuff here
 
-            image.lowfilter(100);
-            // image.highfilter(100);
-
             Mat img = image.getScratch();
 
             namedWindow("Display Image" , WINDOW_AUTOSIZE);

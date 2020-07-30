@@ -356,6 +356,86 @@ void Image::smidge(int x)
 
 void Image::highfilter(int threshold)
 {
+    Mat r(scratch.rows, scratch.cols, CV_8UC1);
+    Mat g(scratch.rows, scratch.cols, CV_8UC1);
+    Mat b(scratch.rows, scratch.cols, CV_8UC1);
+
+    for (int i = 0; i < b.rows; i++)
+    {
+        for (int j = 0; j < b.cols; j++)
+        {
+            b.at<uchar>(i, j) = scratch.at<Vec3b>(i, j)[0];
+        }
+    }
+
+    for (int i = 0; i < g.rows; i++)
+    {
+        for (int j = 0; j < g.cols; j++)
+        {
+            g.at<uchar>(i, j) = scratch.at<Vec3b>(i, j)[1];
+        }
+    }
+
+    for (int i = 0; i < r.rows; i++)
+    {
+        for (int j = 0; j < r.cols; j++)
+        {
+            r.at<uchar>(i, j) = scratch.at<Vec3b>(i, j)[2];
+        }
+    }
+
+    Mat fr = getDCT(r);
+
+    for (auto i = 0; i < fr.rows; i++)
+    {
+        for (auto j = 0; j < fr.cols; j++)
+        {
+            if ((i < threshold) && (j < threshold))
+            {
+                fr.at<double>(i, j) = 0.0;
+            }
+        }
+    }
+
+    Mat filteredr;
+    dct(fr, filteredr, DCT_INVERSE);
+    filteredr.convertTo(r, CV_8UC1);
+
+    Mat fg = getDCT(g);
+
+    for (auto i = 0; i < fg.rows; i++)
+    {
+        for (auto j = 0; j < fg.cols; j++)
+        {
+            if ((i < threshold) && (j < threshold))
+            {
+                fg.at<double>(i, j) = 0.0;
+            }
+        }
+    }
+
+    Mat filteredg;
+    dct(fg, filteredg, DCT_INVERSE);
+    filteredg.convertTo(g, CV_8UC1);
+
+    Mat fb = getDCT(b);
+
+    for (auto i = 0; i < fb.rows; i++)
+    {
+        for (auto j = 0; j < fb.cols; j++)
+        {
+            if ((i < threshold) && (j < threshold))
+            {
+                fb.at<double>(i, j) = 0.0;
+            }
+        }
+    }
+
+    Mat filteredb;
+    dct(fb, filteredb, DCT_INVERSE);
+    filteredb.convertTo(b, CV_8UC1);
+
+    scratch = merge(r, g, b);
 }
 
 void Image::bleach()
