@@ -14,10 +14,13 @@ class Image
     string filepath;
 
     public:
+    Image();
     Image(string filepath);
 
     Mat getDCT(Mat image);
     Mat merge(Mat r, Mat g, Mat b);
+
+    void changeImage(Mat img);
 
     // blur
     void lowfilter(int threshold);

@@ -8,6 +8,13 @@ A C++ program that uses OpenCV basic tools to create image processing tools.
 
 Looking to implement optimizations so that it runs smoothly for videos and then a neural network to recognize the face likely going to be in another project repository.
 
+
+![OpenCV](https://avatars1.githubusercontent.com/u/5009934?s=200&v=4)
+
+This project was built using [OpenCV](https://opencv.org/)
+
+- - -
+
 # Installing the Project
 When you clone the repository, create a new directory called build using the following command:
 
@@ -89,6 +96,55 @@ if (argc != 8)
 
 - - -
 
-![OpenCV](https://avatars1.githubusercontent.com/u/5009934?s=200&v=4)
+Or lastly,
+```bash
+./main
+```
 
-This project was built using [OpenCV](https://opencv.org/):
+Which then returns a video stream from whatever camera the program can locate. (It looks at the default camera at index 0). It will run this section where you can manipulate the frames 
+
+```cpp
+ if (argc == 1)
+        {
+            VideoCapture cap(0); // open the video camera no. 0
+
+            Image img;
+
+            if (!cap.isOpened()) // if not success, exit program
+            {
+                cout << "Cannot open the video cam" << endl;
+                return -1;
+            }
+
+            double dWidth = cap.get(CAP_PROP_FRAME_WIDTH);   //get the width of frames of the video
+            double dHeight = cap.get(CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
+
+            cout << "Frame size : " << dWidth << " x " << dHeight << endl;
+
+            namedWindow("Stream", WINDOW_AUTOSIZE);
+
+            while (1)
+            {
+                Mat frame;
+                bool bSuccess = cap.read(frame); // read a new frame from video
+                Mat result;
+                double scale = float(dWidth)/frame.size().width;
+                resize(frame, result, cv::Size(dWidth/3, dHeight/3), scale, scale);
+                img.changeImage(result);
+                // do anything with image here
+                if (!bSuccess) //if not success, break loop
+                {
+                    cout << "Cannot read a frame from video stream" << endl;
+                    break;
+                }
+
+                imshow("Stream", img.getScratch());
+
+                if (waitKey(30) == 27)
+                {
+                    break;
+                }
+            }
+            return 0;
+        }
+```

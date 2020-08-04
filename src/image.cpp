@@ -14,6 +14,18 @@ Image::Image(string filepath)
     binaryMat = Mat(image.size(), CV_8U);
 }
 
+Image::Image() {
+    
+}
+
+void Image::changeImage(Mat img)
+{
+    this->image = img;
+    image.copyTo(scratch);
+
+    binaryMat = Mat(image.size(), CV_8U);
+}
+
 Mat Image::getImage()
 {
     return image;
