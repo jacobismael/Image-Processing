@@ -15,7 +15,7 @@ Image::Image(string filepath)
 }
 
 Image::Image() {
-    
+
 }
 
 void Image::changeImage(Mat img)
@@ -544,7 +544,7 @@ void Image::findObject()
 void Image::findObjecto()
 {
 
-    int WHITE_THRESHOLD = 230;
+   int WHITE_THRESHOLD = 230;
     int CLR_THRESHOLD = 5;
 
     int mini = scratch.rows;
@@ -597,10 +597,11 @@ void Image::findObjecto()
         {
             Vec3b pixel = image.at<Vec3b>(i, j);
             if (
-                (i >= mini && i <= maxi) && (j >= minj && j <= maxj))
+                ((i == mini || i == maxi) && (j >= minj && j <= maxj)) ||
+                ((j == minj || j == maxj) && (i >= mini && i <= maxi)))
             {
-                pixel[0] = (pixel[0] - 125 < 0) ? 0 : pixel[0] - 125;
-                pixel[1] = (pixel[1] - 125 < 0) ? 0 : pixel[1] - 125;
+                pixel[2] = 255;
+                pixel[0] = pixel[1] = 0;
             }
 
             image.at<Vec3b>(i, j) = pixel;
