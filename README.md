@@ -38,23 +38,7 @@ make
 
 Type the following command in the Terminal:
 ```bash
-./main <filepath> <blur> <threshold> <median> <edge> <image-return>
-```
-- blur: threshold value for range of frequencies
-
-- threshold: level of which any pixel value lower than it drops to 0
-
-- median: any number greater than 1 takes a region of pixel values and sets them to the median
-
-- edge: threshold value for range of frequencies
-
-- image-return:
-```bash
-    1. original image
-    2. scratch copy of original with all processes run on it
-    3. A binary image that represents all non-black values
-    4. A frequency Map of the image 
-```
+./main
 - - -
 
 Or,
