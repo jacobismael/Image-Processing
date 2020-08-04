@@ -1,7 +1,6 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <image.hpp>
-#include <sstream>
 #include <chrono>
 
 using namespace std;
