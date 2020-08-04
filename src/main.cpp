@@ -94,8 +94,6 @@ int main(int argc, char **argv)
 
             // Do the specified stuff here
 
-            image.findObjecto();
-
             Mat img = image.getImage();
             namedWindow("Display Image", WINDOW_AUTOSIZE);
             imshow("Display Image", img);
