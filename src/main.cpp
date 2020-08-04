@@ -73,7 +73,7 @@ int main(int argc, char **argv)
                 break;
             }
 
-            imshow("Stream", img.getImage());
+            imshow("Stream", img.getScratch());
 
             if (waitKey(30) == 27)
             {
