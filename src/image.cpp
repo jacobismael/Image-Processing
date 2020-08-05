@@ -448,6 +448,20 @@ void Image::highfilter(int threshold)
     filteredb.convertTo(b, CV_8UC1);
 
     scratch = merge(r, g, b);
+
+    for(int i = 0; i < scratch.rows; i++) {
+        for(int j = 0; j < scratch.cols; j++) {
+            if(!(scratch.at<Vec3b>(i, j)[0] < 40 && scratch.at<Vec3b>(i, j)[1] < 40 && scratch.at<Vec3b>(i, j)[2] < 40)) {
+                scratch.at<Vec3b>(i, j)[0] = 255;
+                scratch.at<Vec3b>(i, j)[1] = 255;
+                scratch.at<Vec3b>(i, j)[2] = 255;
+            } else {
+                scratch.at<Vec3b>(i, j)[0] = 0;
+                scratch.at<Vec3b>(i, j)[1] = 0;
+                scratch.at<Vec3b>(i, j)[2] = 0;
+            }
+        }
+    }
 }
 
 void Image::bleach()
